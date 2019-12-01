@@ -1,5 +1,6 @@
 class TalksController < ApplicationController
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:create]
 
   # GET /talks
   # GET /talks.json
@@ -69,6 +70,6 @@ class TalksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def talk_params
-      params.require(:talk).permit(:title, :description, :votes)
+      params.permit(:title, :description, :votes)
     end
 end
