@@ -25,17 +25,14 @@ class TalksController < ApplicationController
   # POST /talks
   # POST /talks.json
   def create
+    p talk_params
     @talk = Talk.new(talk_params)
 
-    respond_to do |format|
       if @talk.save
-        format.html { redirect_to @talk, notice: 'Talk was successfully created.' }
-        format.json { render :show, status: :created, location: @talk }
+        render json: { status: :created, talk: @talk }
       else
-        format.html { render :new }
-        format.json { render json: @talk.errors, status: :unprocessable_entity }
+        render json: { errors: @talk.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   # PATCH/PUT /talks/1
@@ -70,6 +67,7 @@ class TalksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def talk_params
-      params.permit(:title, :description, :votes)
+      p params
+      params.require(:talk).permit(:title, :description, :votes)
     end
 end
