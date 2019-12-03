@@ -13,8 +13,8 @@ Talk.destroy_all
 
 50.times do
   talk = Talk.new(
-    title: Faker::Company.bs,
-    description: Faker::Company.catch_phrase,
+    title: Faker::Company.catch_phrase,
+    description: Faker::Company.bs,
     votes: (1..100).to_a.sample
   )
   talk.save!
